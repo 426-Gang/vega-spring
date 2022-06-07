@@ -1,7 +1,4 @@
 # Docker
-- task: SonarQubePublish@5
-  inputs:
-    pollingTimeoutSec: '300'
 # Build and push an image to Azure Container Registry
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
@@ -40,3 +37,12 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+        
+    - task: SonarQubePrepare@5
+      inputs:
+        SonarQube: 'SonarQube'
+        scannerMode: 'Other'
+    - task: SonarQubeAnalyze@5
+    - task: SonarQubePublish@5
+      inputs:
+        pollingTimeoutSec: '300'
