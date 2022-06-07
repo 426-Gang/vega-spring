@@ -21,8 +21,8 @@ variables:
 
 stages:
 
-- stage: Analyze
-  displayName: Run SonarQube
+- stage: Analyze and Test
+  displayName: Run SonarQube and test
   jobs:
   - job: Analyze
     displayName: Analyze
@@ -34,7 +34,7 @@ stages:
       inputs:
         SonarQube: 'SonarQUbe'
         scannerMode: 'Other'
-        
+
     - task: Maven@3
       inputs:
         mavenPomFile: 'pom.xml'
