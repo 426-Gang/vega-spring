@@ -21,7 +21,7 @@ variables:
 
 stages:
 
-- stage: Analyze and Test
+- stage: Analyze_Test
   displayName: Run SonarQube and test
   jobs:
   - job: Analyze
