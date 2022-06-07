@@ -20,6 +20,23 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
+- stage: Analyze
+  displayName: Run SonarQube
+  jobs:
+  - job: Analyze
+    displayName: Analyze
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: SonarQubePrepare@5
+      inputs:
+        SonarQube: 'SonarQUbe'
+        scannerMode: 'Other'
+    - task: SonarQubeAnalyze@5
+    - task: SonarQubePublish@5
+      inputs:
+        pollingTimeoutSec: '300'
+        
 - stage: Build
   displayName: Build and push stage
   jobs:
@@ -37,12 +54,3 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-        
-    - task: SonarQubePrepare@5
-      inputs:
-        SonarQube: 'SonarQUbe'
-        scannerMode: 'Other'
-    - task: SonarQubeAnalyze@5
-    - task: SonarQubePublish@5
-      inputs:
-        pollingTimeoutSec: '300'
