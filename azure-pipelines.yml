@@ -53,7 +53,7 @@ stages:
         ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
           sonarQubeRunAnalysis: true
         ${{ else }} :
-          sonarQubeRunAnalysis: true
+          sonarQubeRunAnalysis: false
         sqMavenPluginVersionChoice: 'latest'
     - task: SonarQubePublish@5
       inputs:
