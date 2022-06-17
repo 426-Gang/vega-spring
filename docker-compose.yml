@@ -6,7 +6,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile
       args:
-        MODE: prod
+        MODE: dev
     image: "venus/beeple"
     ports:
       - "8080:8080"
