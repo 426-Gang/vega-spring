@@ -6,7 +6,9 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN ./mvnw install -DskipTests
+ARG MODE=dev
+
+RUN ./mvnw install -P${MODE} -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:14.0.2
@@ -18,4 +20,4 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.uvic.venus.VenusApplication"]
+ENTRYPOINT java -cp app:app/lib/* com.uvic.venus.VenusApplication

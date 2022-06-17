@@ -10,11 +10,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @SpringBootApplication
 @EnableWebSecurity
 @EnableConfigurationProperties(StorageProperties.class)
-@PropertySource("classpath:application-dev.properties")
+@PropertySource("classpath:application.properties")
 public class VenusApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(VenusApplication.class, args);
-	}
+
+        public static void main(String[] args) {
+                SpringApplication.run(VenusApplication.class, args);
+        }
 
 }
