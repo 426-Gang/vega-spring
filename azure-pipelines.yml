@@ -50,10 +50,12 @@ stages:
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
         effectivePomSkip: false
-        sonarQubeRunAnalysis: true
+        ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+          sonarQubeRunAnalysis: true
+        ${{ else }} :
+          sonarQubeRunAnalysis: true
         sqMavenPluginVersionChoice: 'latest'
     - task: SonarQubePublish@5
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       inputs:
         pollingTimeoutSec: '300'
         
