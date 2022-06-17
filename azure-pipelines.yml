@@ -56,6 +56,7 @@ stages:
           sonarQubeRunAnalysis: false
         sqMavenPluginVersionChoice: 'latest'
     - task: SonarQubePublish@5
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       inputs:
         pollingTimeoutSec: '300'
         
@@ -77,3 +78,13 @@ stages:
         tags: |
           $(tag)
           latest
+    - task: AzureRmWebAppDeployment@4
+      condition: eq(variables['Build.SourceBranchName'], 'dev')
+      displayName: Deploy dev vega-spring
+      inputs:
+        azureSubscription: 'Azure for Students (63ecfa31-9ab6-4ab7-8c8d-dd55767d7a40)'
+        appType: webAppContainer
+        WebAppName: 'vega-spring-dev'
+        DockerNamespace: vegadevregistry.azurecr.io
+        DockerRepository: vegaspring
+        DockerImageTag: latest
