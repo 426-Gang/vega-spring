@@ -27,7 +27,6 @@ variables:
 stages:
 
 - stage: Analyze_Test
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   displayName: Run SonarQube and test
   jobs:
   - job: Analyze
@@ -54,6 +53,7 @@ stages:
         sonarQubeRunAnalysis: true
         sqMavenPluginVersionChoice: 'latest'
     - task: SonarQubePublish@5
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       inputs:
         pollingTimeoutSec: '300'
         
