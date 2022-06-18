@@ -6,9 +6,7 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-ARG MODE=dev
-
-RUN ./mvnw install -P${MODE} -DskipTests
+RUN ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:14.0.2
