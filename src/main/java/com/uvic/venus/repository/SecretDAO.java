@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface SecretDAO extends JpaRepository<Secret, String> {
     // Find all secrets for a user
-    @Query("SELECT id, username, data, datetime, shared FROM secrets WHERE username = :username")
+    @Query("SELECT id, username, data, datetime, shared FROM Secret WHERE username = :username")
     public List<Secret> findByUsername(@Param("username")String username);
 }

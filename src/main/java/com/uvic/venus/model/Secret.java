@@ -3,7 +3,6 @@ package com.uvic.venus.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +14,7 @@ public class Secret {
     private String username;
     private String data;
     private LocalDateTime datetime;
-    boolean shared;
+    private boolean shared;
     
     public Secret(Long id, String username, String data, LocalDateTime datetime, boolean shared) {
         this.id = id;

@@ -24,8 +24,9 @@ public class VaultController {
     SecretDAO secretDAO;
 
     // User submits a request to add a new vega vault entry to the database
-    @RequestMapping("/newentry")
-    public ResponseEntity<?> newEntry(@RequestParam String username, @RequestParam String data, @RequestParam boolean shared) {
+    @RequestMapping(value = "/newentry", method = RequestMethod.POST)
+    // public ResponseEntity<?> newEntry(@RequestBody Secret secret) {
+    public ResponseEntity<?> newEntry(@RequestParam("username") String username, @RequestParam("data") String data, @RequestParam("shared") boolean shared) {
         Secret secret = new Secret(username, data, shared);
         // Write secret to db
         try{
@@ -38,8 +39,8 @@ public class VaultController {
     }
 
     // Fetch existing secrets for a user
-    @RequestMapping("/mysecrets")
-    public ResponseEntity<?> getMySecrets(@RequestParam String username) {
+    @RequestMapping(value = "/mysecrets", method = RequestMethod.POST)
+    public ResponseEntity<?> getMySecrets(@RequestParam("username") String username) {
         try{
             List<Secret> secrets = secretDAO.findByUsername(username);
             return ResponseEntity.ok(secrets);
