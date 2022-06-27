@@ -24,9 +24,20 @@ public class Secret {
         this.datetime = datetime;
         this.shared = shared;
     }
+    public Secret(int id, String username, String data, boolean shared) {
+        this.id = id;
+        this.username = username;
+        this.data = data;
+        this.datetime = LocalDateTime.now();
+        this.shared = shared;
+    }
 
-    public Secret() {
-
+    public Secret(String username, String data, boolean shared) {
+        this.id = -1;
+        this.username = username;
+        this.data = data;
+        this.datetime = LocalDateTime.now();
+        this.shared = shared;
     }
 
     // Getters and setters
@@ -58,5 +69,15 @@ public class Secret {
         this.shared = shared;
     }
 
+    @Override
+    public String toString() {
+        return "Secret{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", data='" + data + '\'' +
+                ", datetime=" + datetime +
+                ", shared=" + shared +
+                '}';
+    }
 
 }
