@@ -11,20 +11,20 @@ import java.time.LocalDateTime;
 public class Secret {
 
     @Id
-    private int id;
+    private Long id;
     private String username;
     private String data;
     private LocalDateTime datetime;
     boolean shared;
     
-    public Secret(int id, String username, String data, LocalDateTime datetime, boolean shared) {
+    public Secret(Long id, String username, String data, LocalDateTime datetime, boolean shared) {
         this.id = id;
         this.username = username;
         this.data = data;
         this.datetime = datetime;
         this.shared = shared;
     }
-    public Secret(int id, String username, String data, boolean shared) {
+    public Secret(Long id, String username, String data, boolean shared) {
         this.id = id;
         this.username = username;
         this.data = data;
@@ -33,7 +33,6 @@ public class Secret {
     }
 
     public Secret(String username, String data, boolean shared) {
-        this.id = -1;
         this.username = username;
         this.data = data;
         this.datetime = LocalDateTime.now();
@@ -41,7 +40,7 @@ public class Secret {
     }
 
     // Getters and setters
-    public int getId() {
+    public Long getId() {
         return id;
     }
     public String getUsername() {
