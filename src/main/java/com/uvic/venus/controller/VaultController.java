@@ -1,5 +1,6 @@
 package com.uvic.venus.controller;
 
+import java.util.List;
 import com.uvic.venus.model.Secret;
 import com.uvic.venus.repository.SecretDAO;
 
@@ -34,6 +35,17 @@ public class VaultController {
             return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.ok("Success");
+    }
+
+    // Fetch existing secrets for a user
+    @RequestMapping("/mysecrets")
+    public ResponseEntity<?> getMySecrets(@RequestParam String username) {
+        try{
+            List<Secret> secrets = secretDAO.findByUsername(username);
+            return ResponseEntity.ok(secrets);
+        } catch (Exception e){
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
