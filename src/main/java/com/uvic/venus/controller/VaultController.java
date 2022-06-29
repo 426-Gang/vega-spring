@@ -25,7 +25,6 @@ public class VaultController {
 
     // User submits a request to add a new vega vault entry to the database
     @RequestMapping(value = "/newentry", method = RequestMethod.POST)
-    // public ResponseEntity<?> newEntry(@RequestBody Secret secret) {
     public ResponseEntity<?> newEntry(@RequestParam("username") String username, @RequestParam("data") String data, @RequestParam("shared") boolean shared) {
         Secret secret = new Secret(username, data, shared);
         // Write secret to db
