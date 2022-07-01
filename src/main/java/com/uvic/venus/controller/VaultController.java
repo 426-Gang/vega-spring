@@ -1,6 +1,8 @@
 package com.uvic.venus.controller;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.uvic.venus.model.Secret;
 import com.uvic.venus.repository.SecretDAO;
 
@@ -43,6 +45,38 @@ public class VaultController {
         try{
             List<Secret> secrets = secretDAO.findByUsername(username);
             return ResponseEntity.ok(secrets);
+        } catch (Exception e){
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    //Update existing secret
+    @RequestMapping(value = "/updatesecret", method = RequestMethod.POST)
+    public ResponseEntity<?> updateSecret(@RequestParam("id") Long id, @RequestParam("username") String username, @RequestParam("data") String data, @RequestParam("shared") boolean shared) {
+        try{
+            if (secretDAO.existsById(String.valueOf(id))) {
+                secretDAO.save(new Secret(id, username, data, shared));
+            }
+            else {
+                return new ResponseEntity<>("Error: Secret with id " + id + " does not exist.", HttpStatus.BAD_REQUEST);
+            }
+            return ResponseEntity.ok("Success");
+        } catch (Exception e){
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // Delete existing secret
+    @RequestMapping(value = "/deletesecret", method = RequestMethod.POST)
+    public ResponseEntity<?> deleteSecret(@RequestParam("id") Long id) {
+        try{
+            if (secretDAO.existsById(String.valueOf(id))) {
+                secretDAO.deleteById(String.valueOf(id));
+            }
+            else {
+                return new ResponseEntity<>("Error: Secret with id " + id + " does not exist.", HttpStatus.BAD_REQUEST);
+            }
+            return ResponseEntity.ok("Success");
         } catch (Exception e){
             return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
