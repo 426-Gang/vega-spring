@@ -26,7 +26,7 @@ public class VaultController {
     SecretDAO secretDAO;
 
     // User submits a request to add a new vega vault entry to the database
-    @RequestMapping(value = "/newentry", method = RequestMethod.POST)
+    @RequestMapping(value = "/newsecret", method = RequestMethod.POST)
     public ResponseEntity<?> newEntry(@RequestParam("username") String username, @RequestParam("data") String data, @RequestParam("shared") boolean shared) {
         Secret secret = new Secret(username, data, shared);
         // Write secret to db
@@ -52,10 +52,10 @@ public class VaultController {
 
     //Update existing secret
     @RequestMapping(value = "/updatesecret", method = RequestMethod.POST)
-    public ResponseEntity<?> updateSecret(@RequestParam("id") String id, @RequestParam("username") String username, @RequestParam("data") String data, @RequestParam("shared") boolean shared) {
+    public ResponseEntity<?> updateSecret(@RequestParam("id") Long id, @RequestParam("username") String username, @RequestParam("data") String data, @RequestParam("shared") boolean shared) {
         try{
-            if (secretDAO.existsById(id)) {
-                secretDAO.save(new Secret(Long.valueOf(id), username, data, shared));
+            if (secretDAO.existsById(String.valueOf(id))) {
+                secretDAO.save(new Secret(id, username, data, shared));
             }
             else {
                 return new ResponseEntity<>("Error: Secret with id " + id + " does not exist.", HttpStatus.BAD_REQUEST);
@@ -68,10 +68,10 @@ public class VaultController {
 
     // Delete existing secret
     @RequestMapping(value = "/deletesecret", method = RequestMethod.POST)
-    public ResponseEntity<?> deleteSecret(@RequestParam("id") String id) {
+    public ResponseEntity<?> deleteSecret(@RequestParam("id") Long id) {
         try{
-            if (secretDAO.existsById(id)) {
-                secretDAO.deleteById(id);
+            if (secretDAO.existsById(String.valueOf(id))) {
+                secretDAO.deleteById(String.valueOf(id));
             }
             else {
                 return new ResponseEntity<>("Error: Secret with id " + id + " does not exist.", HttpStatus.BAD_REQUEST);
