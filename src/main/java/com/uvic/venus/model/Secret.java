@@ -20,29 +20,33 @@ public class Secret {
     private String data;
     private LocalDateTime datetime;
     private boolean shared;
+    private String name;
     
     public Secret() {}
 
-    public Secret(Long id, String username, String data, LocalDateTime datetime, boolean shared) {
+    public Secret(Long id, String username, String data, LocalDateTime datetime, boolean shared, String name) {
         this.id = id;
         this.username = username;
         this.data = data;
         this.datetime = datetime;
         this.shared = shared;
+        this.name = name;
     }
-    public Secret(Long id, String username, String data, boolean shared) {
+    public Secret(Long id, String username, String data, boolean shared, String name) {
         this.id = id;
         this.username = username;
         this.data = data;
         this.datetime = LocalDateTime.now();
         this.shared = shared;
+        this.name = name;
     }
 
-    public Secret(String username, String data, boolean shared) {
+    public Secret(String username, String data, boolean shared, String name) {
         this.username = username;
         this.data = data;
         this.datetime = LocalDateTime.now();
         this.shared = shared;
+        this.name = name;
     }
 
     // Getters and setters
@@ -61,6 +65,9 @@ public class Secret {
     public boolean isShared() {
         return shared;
     }
+    public String getName() {
+        return name;
+    }
     public void setId(Long id) {
         this.id = id;
     }
@@ -76,6 +83,9 @@ public class Secret {
     public void setShared(boolean shared) {
         this.shared = shared;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {
@@ -85,6 +95,7 @@ public class Secret {
                 ", data='" + data + '\'' +
                 ", datetime=" + datetime +
                 ", shared=" + shared +
+                ", name='" + name +
                 '}';
     }
 

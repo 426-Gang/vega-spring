@@ -27,8 +27,8 @@ public class VaultController {
 
     // User submits a request to add a new vega vault entry to the database
     @RequestMapping(value = "/newsecret", method = RequestMethod.POST)
-    public ResponseEntity<?> newEntry(@RequestParam("username") String username, @RequestParam("data") String data, @RequestParam("shared") boolean shared) {
-        Secret secret = new Secret(username, data, shared);
+    public ResponseEntity<?> newEntry(@RequestParam("username") String username, @RequestParam("data") String data, @RequestParam("shared") boolean shared, @RequestParam("name") String name) {
+        Secret secret = new Secret(username, data, shared, name);
         // Write secret to db
         try{
             secretDAO.save(secret);
@@ -52,10 +52,10 @@ public class VaultController {
 
     //Update existing secret
     @RequestMapping(value = "/updatesecret", method = RequestMethod.POST)
-    public ResponseEntity<?> updateSecret(@RequestParam("id") Long id, @RequestParam("username") String username, @RequestParam("data") String data, @RequestParam("shared") boolean shared) {
+    public ResponseEntity<?> updateSecret(@RequestParam("id") Long id, @RequestParam("username") String username, @RequestParam("data") String data, @RequestParam("shared") boolean shared, @RequestParam("name") String name) {
         try{
             if (secretDAO.existsById(String.valueOf(id))) {
-                secretDAO.save(new Secret(id, username, data, shared));
+                secretDAO.save(new Secret(id, username, data, shared, name));
             }
             else {
                 return new ResponseEntity<>("Error: Secret with id " + id + " does not exist.", HttpStatus.BAD_REQUEST);
