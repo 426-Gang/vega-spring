@@ -1,17 +1,13 @@
 package com.uvic.venus.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.uvic.venus.model.Secret;
 import com.uvic.venus.repository.SecretDAO;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,12 +50,7 @@ public class VaultController {
     @RequestMapping(value = "/updatesecret", method = RequestMethod.POST)
     public ResponseEntity<?> updateSecret(@RequestParam("id") Long id, @RequestParam("username") String username, @RequestParam("data") String data, @RequestParam("shared") boolean shared, @RequestParam("name") String name) {
         try{
-            if (secretDAO.existsById(String.valueOf(id))) {
-                secretDAO.save(new Secret(id, username, data, shared, name));
-            }
-            else {
-                return new ResponseEntity<>("Error: Secret with id " + id + " does not exist.", HttpStatus.BAD_REQUEST);
-            }
+            secretDAO.save(new Secret(id, username, data, shared, name));
             return ResponseEntity.ok("Success");
         } catch (Exception e){
             return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -70,12 +61,7 @@ public class VaultController {
     @RequestMapping(value = "/deletesecret", method = RequestMethod.POST)
     public ResponseEntity<?> deleteSecret(@RequestParam("id") Long id) {
         try{
-            if (secretDAO.existsById(String.valueOf(id))) {
-                secretDAO.deleteById(String.valueOf(id));
-            }
-            else {
-                return new ResponseEntity<>("Error: Secret with id " + id + " does not exist.", HttpStatus.BAD_REQUEST);
-            }
+            secretDAO.deleteById(id);
             return ResponseEntity.ok("Success");
         } catch (Exception e){
             return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
