@@ -57,8 +57,7 @@ public class VaultController {
             secretDAO.save(new Secret(id, username, data, shared));
             return ResponseEntity.ok("Success");
         } catch (Exception e){
-            throw e;
-            // return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -66,7 +65,7 @@ public class VaultController {
     @RequestMapping(value = "/deletesecret", method = RequestMethod.POST)
     public ResponseEntity<?> deleteSecret(@RequestParam("id") Long id) {
         try{
-            secretDAO.deleteById(String.valueOf(id));
+            secretDAO.deleteById(id);
             return ResponseEntity.ok("Success");
         } catch (Exception e){
             return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
