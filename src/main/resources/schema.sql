@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS secrets (
     datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     shared TINYINT NOT NULL DEFAULT 0,
     name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id),
     FOREIGN KEY (username) REFERENCES users(username)
 );
 -- CREATE UNIQUE  INDEX ix_auth_username on authorities (username,authority);
