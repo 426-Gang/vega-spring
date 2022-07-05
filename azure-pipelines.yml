@@ -88,4 +88,4 @@ stages:
         DockerNamespace: vegadevregistry.azurecr.io
         DockerRepository: vegaspring
         DockerImageTag: latest
-        AppSettings: '-FRONTEND_URL vega-web.azurewebsites.net -API_URL vega-spring.azurewebsites.net -SPRING_PROFILES_ACTIVE prod'
+        AppSettings: '-SPRING_DATASOURCE_URL jdbc:mysql://vegadevdb.mysql.database.azure.com:3306/venus?useSSL=true -SPRING_DATASOURCE_USERNAME vegaadmin -SPRING_DATASOURCE_PASSWORD SQLpass426 -SPRING_PROFILES_ACTIVE prod'
