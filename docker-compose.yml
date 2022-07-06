@@ -5,11 +5,14 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-      args:
-        MODE: dev
     image: "venus/beeple"
     ports:
       - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://${MY_IP}:3306/venus?useSSL=true
+      - SPRING_DATASOURCE_USERNAME=venus
+      - SPRING_DATASOURCE_PASSWORD=venus
   venus-mysql:
     image: mysql:latest
     environment:
