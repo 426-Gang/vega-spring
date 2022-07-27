@@ -26,10 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery("Select * from users where username=?")
-                .passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(null).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
